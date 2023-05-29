@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model YearTask {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  deadline DateTime?
+  start DateTime?
+  end DateTime?
+  children MonthTask[]
+  text String @db.VarChar(255)
+  completed Boolean @default(false)
+  blockers String?
+}
+
+model MonthTask {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  deadline DateTime?
+  start DateTime?
+  end DateTime?
+  parents YearTask[]
+  children DayTask[]
+  text String @db.VarChar(255)
+  completed Boolean @default(false)
+  blockers String?
+}
+
+model DayTask {
+  id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+  deadline DateTime?
+  start DateTime?
+  end DateTime?
+  parents MonthTask[]
+  text String @db.VarChar(255)
+  completed Boolean @default(false)
+  blockers String?
+}

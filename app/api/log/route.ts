@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 const monthlyLog: Record<string, Record<number, string>> = {
@@ -102,13 +103,19 @@ const monthlyLog: Record<string, Record<number, string>> = {
   };     
 export type IMonthlyLog = typeof monthlyLog  
 
-export const GET = (req: Request) => {
+const prisma = new PrismaClient()
+
+export const GET = async (req: Request) => {
       const res = {...monthlyLog}
+      const tasks = await prisma.monthTask.findMany()
+      console.log(tasks);
+      
       return NextResponse.json(res)
 }
 
 export const POST = async (req: Request) => {
     console.log(await req.json());
+
     return new NextResponse('Created', {status: 201})
     
 }
