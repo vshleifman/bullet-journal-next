@@ -14,6 +14,7 @@ model YearTask {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
+  targetDate DateTime
   deadline DateTime?
   start DateTime?
   end DateTime?
@@ -27,6 +28,7 @@ model MonthTask {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
+  targetDate DateTime
   deadline DateTime?
   start DateTime?
   end DateTime?
@@ -41,6 +43,7 @@ model DayTask {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime? @updatedAt
+  targetDate DateTime
   deadline DateTime?
   start DateTime?
   end DateTime?
